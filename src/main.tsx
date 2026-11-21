@@ -6,4 +6,5 @@ import App from './App';
 import './style.css';
 import './storefront.css';
 import './arc-selector.css';
+import './ar-minimal.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><BrowserRouter><CartProvider><App/></CartProvider></BrowserRouter></React.StrictMode>);

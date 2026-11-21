@@ -60,9 +60,9 @@ export default function ARTryOn() {
       {live && !tracking && !trackingError && <div className="guide-dimmer"/>}
       <StepGuide state={trackingState} visible={live && !tracking && !trackingError}/>
       {mode === 'ar' && !camera.active && <div className="camera-welcome">
-        <span className="welcome-eyebrow">BARE.KICKSS / A DIFFERENT PERSPECTIVE.</span>
-        <h1>See it.<br/><em>On you.</em></h1>
-        <p>Open your camera. Point at your feet.<br/>Find your next favorite pair.</p>
+        <span className="welcome-eyebrow">BARE.KICKSS / AR TRY-ON</span>
+        <h1>See them<br/><em>on your feet.</em></h1>
+        <p>Point your camera at your feet to begin.</p>
         <button className="primary-button" onClick={() => camera.start()} disabled={camera.loading}>{camera.loading ? <LoaderCircle className="spin" size={19}/> : <Camera size={19}/>} {camera.loading ? 'Opening camera…' : 'Start try-on'}</button>
         <span className="privacy-note">Camera processing stays on your device</span>
       </div>}
@@ -72,7 +72,6 @@ export default function ARTryOn() {
     {requested && !requested.ar.exact && <div className="ar-context-note" role="status">{requested.name} has no matching 3D model yet. You are trying the {shoe.name} demo.</div>}
     <header className="experience-header">
       <Link className="sole-badge" to="/" aria-label="bare.kickss home">bare.kickss</Link>
-      <span className="header-caption">BARE.KICKSS / THE FITTING ROOM</span>
       <div className="header-actions"><button className="round-action" onClick={() => setHelp(true)} aria-label="How to try on"><Info size={19}/></button><button className={`round-action ${settings ? 'active' : ''}`} onClick={() => setSettings(s => !s)} aria-label="Fit and alignment settings" aria-expanded={settings}><Settings2 size={19}/></button></div>
     </header>
     <nav className="mode-toggle" aria-label="Experience mode"><button aria-pressed={mode === '3d'} onClick={() => changeMode('3d')}><Orbit size={24}/><span>3D</span></button><button aria-pressed={mode === 'ar'} onClick={() => changeMode('ar')}><Footprints size={23}/><span>AR</span></button></nav>
@@ -80,11 +79,10 @@ export default function ARTryOn() {
     {live && <div className="camera-actions"><button className="round-action" onClick={camera.switchCamera} disabled={camera.loading} aria-label="Switch camera"><SwitchCamera size={20}/></button><button className="round-action capture-action" onClick={capture} disabled={modelStatus !== 'ready' || camera.loading} aria-label="Capture try-on screenshot"><Camera size={22}/></button><button className="round-action" onClick={camera.stop} aria-label="Stop camera"><X size={20}/></button></div>}
 
     <footer className="product-dock">
-      <div className="product-info" aria-live="polite"><span>{shoe.brand} <i> / </i> {shoe.modelUrl ? shoe.id === 'orange-reference' ? 'PHOTO RECONSTRUCTION' : '3D MODEL' : 'DEMO MODEL'}</span><h2>{shoe.name}</h2><p>{shoe.category.replace(' · ', ' / ')}</p></div>
+      <div className="product-info" aria-live="polite"><h2>{shoe.name}</h2></div>
       <div className="carousel-wrap"><button className="carousel-arrow" onClick={() => select(selected - 1)} aria-label="Previous shoe"><ChevronLeft size={21}/></button><div className="shoe-carousel" role="group" aria-label="Choose your shoe">{shoes.map((item, index) => <button key={item.id} ref={element => { thumbnails.current[index] = element; }} className={`shoe-option ${selected === index ? 'selected' : ''}`} onClick={() => select(index)} aria-pressed={selected === index} aria-label={`${item.name}${item.modelUrl ? '' : ' (demo geometry)'}`}>
         <span className="shoe-circle">{item.thumbnailUrl ? <img src={item.thumbnailUrl} alt=""/> : <span className="thumbnail-shoe" style={{ '--shoe': item.color, '--trim': item.accent } as CSSProperties}><i/><b/><em/></span>}</span><span className="shoe-option-name">{item.name}</span>{selected === index && <span className="selection-dot"/>}
       </button>)}</div><button className="carousel-arrow" onClick={() => select(selected + 1)} aria-label="Next shoe"><ChevronRight size={21}/></button></div>
-      <div className="dock-caption"><span>{String(selected + 1).padStart(2, '0')} / {String(shoes.length).padStart(2, '0')}</span><span>{mode === 'ar' ? 'TRY IT ON. MAKE IT YOURS.' : 'EXPLORE EVERY ANGLE.'}</span></div>
     </footer>
 
     {(camera.error && mode === 'ar' || live && trackingError || captureError || modelStatus === 'error' && live) && <div className="experience-error" role="alert"><Info size={17}/><span>{camera.error || trackingError || captureError || 'Shoe asset failed to load. Please choose another pair.'}</span></div>}

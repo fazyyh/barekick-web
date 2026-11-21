@@ -1,0 +1,39 @@
+/* Quiet AR controls leave the camera and shoes as the focus. */
+.tryon-app .stage-shade{background:linear-gradient(#0005,transparent 23%,transparent 63%,#0009)}
+.tryon-app .experience-header{top:max(18px,env(safe-area-inset-top));left:24px;right:24px}
+.tryon-app .sole-badge{background:transparent;box-shadow:none;padding:0;font-size:24px;letter-spacing:-1.6px;border-radius:0}
+.tryon-app .header-actions{gap:8px}
+.tryon-app .round-action{width:42px;height:42px;background:#0a0a0a99;border:1px solid #ffffff55;border-radius:0;backdrop-filter:blur(6px)}
+.tryon-app .round-action:hover,.tryon-app .round-action.active{background:#fff;color:#111;border-color:#fff}
+.tryon-app .mode-toggle{top:max(19px,env(safe-area-inset-top));border:1px solid #ffffff66;border-radius:0;box-shadow:none;background:#0a0a0aba}
+.tryon-app .mode-toggle button{min-width:70px;padding:11px 15px;gap:7px;font-size:12px;font-weight:500;letter-spacing:.1em}
+.tryon-app .mode-toggle button svg{width:15px;height:15px}
+.tryon-app .mode-toggle button[aria-pressed=true]{background:#fff;color:#111}
+.tryon-app .ar-store-back{left:24px;top:76px;border:0;color:#e5e5e5;font-size:11px;letter-spacing:.04em}
+.tryon-app .ar-context-note{top:112px;max-width:420px;padding:10px 13px;font-size:11px;background:#0a0a0ac9;border-color:#ffffff44}
+.tryon-app .camera-welcome{top:46%;max-width:530px}
+.tryon-app .camera-welcome h1{font-size:clamp(44px,5.5vw,74px);margin:18px 0 14px}
+.tryon-app .camera-welcome em{font-family:inherit;font-style:normal;color:#fff}
+.tryon-app .camera-welcome p{font-size:14px;color:#e5e5e5;margin:0 0 25px}
+.tryon-app .welcome-eyebrow{font:11px/1.4 Inter,Helvetica,Arial,sans-serif;letter-spacing:.15em;color:#e5e5e5}
+.tryon-app .primary-button{border-radius:0;padding:14px 25px;font-size:13px;min-height:46px}
+.tryon-app .privacy-note{font-size:11px;margin-top:13px}
+.tryon-app .tracking-chip{top:75px;border-radius:0;font:11px Inter,Helvetica,Arial,sans-serif;background:#0a0a0aa8;padding:7px 10px}
+.tryon-app .camera-actions{right:24px;top:auto;bottom:170px;transform:none;gap:8px}
+.tryon-app .camera-actions .capture-action{width:48px;height:48px;margin:0;border:1px solid #fff;background:#fff;color:#111}
+.tryon-app .product-dock{bottom:max(18px,env(safe-area-inset-bottom));width:min(420px,calc(100% - 30px));padding:14px 18px 10px;background:#0a0a0ac9;border:1px solid #ffffff4a;backdrop-filter:blur(8px)}
+.tryon-app .product-dock{transform:translateX(calc(-50% + 18px))}
+.tryon-app .product-info h2{font-size:16px;font-weight:500;margin:0 0 9px;letter-spacing:-.02em}
+.tryon-app .carousel-wrap{margin:0 auto;gap:10px;max-width:320px}
+.tryon-app .shoe-carousel{gap:10px;padding:5px 4px 7px}
+.tryon-app .shoe-option{min-width:70px;width:70px;flex-basis:70px}
+.tryon-app .shoe-circle{width:64px;height:64px;border-radius:0;background:#fff;outline:1px solid transparent;outline-offset:3px}
+.tryon-app .shoe-option.selected .shoe-circle{outline-color:#fff;transform:none}
+.tryon-app .shoe-option-name,.tryon-app .selection-dot{display:none}
+.tryon-app .carousel-arrow{width:28px;height:28px;flex-basis:28px;margin-top:0;border-radius:0}
+.tryon-app .fit-panel,.tryon-app .help-panel,.tryon-app .snapshot-panel{background:#fff;color:#111;border-radius:0;box-shadow:none}
+.tryon-app .fit-panel .round-action,.tryon-app .help-panel .round-action,.tryon-app .snapshot-panel .round-action{color:#111;background:#fff;border-color:#e5e5e5}
+.tryon-app .size-control select{border-radius:0;background:#fff;color:#111}
+.tryon-app .reset-fit{border-radius:0}
+@media(max-width:600px){.tryon-app .experience-header{left:16px;right:16px}.tryon-app .sole-badge{font-size:20px}.tryon-app .header-actions .round-action{width:34px;height:34px}.tryon-app .mode-toggle{top:max(66px,calc(env(safe-area-inset-top) + 47px))}.tryon-app .mode-toggle button{min-width:70px;padding:9px 13px}.tryon-app .ar-store-back{left:16px;top:106px}.tryon-app .tracking-chip{top:150px}.tryon-app .ar-context-note{top:185px}.tryon-app .camera-welcome{top:44%}.tryon-app .camera-welcome h1{font-size:47px}.tryon-app .camera-actions{right:16px;bottom:145px}.tryon-app .product-dock{bottom:max(10px,env(safe-area-inset-bottom));padding:10px 13px 7px;width:min(330px,calc(100% - 92px));margin-left:-24px}.tryon-app .product-info h2{font-size:14px;margin-bottom:5px}.tryon-app .shoe-carousel{gap:8px}.tryon-app .shoe-option{min-width:58px;width:58px;flex-basis:58px}.tryon-app .shoe-circle{width:55px;height:55px}.tryon-app .carousel-arrow{display:none}}
+@media(max-width:600px){.tryon-app .product-dock{margin-left:0;transform:translateX(calc(-50% + 10px))}}
