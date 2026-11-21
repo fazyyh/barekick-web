@@ -1,0 +1,15 @@
+import { useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Search, UserRound, ShoppingBag, Menu } from 'lucide-react';
+import { useCart } from '../../store/CartContext';
+import { products, money } from '../../store/products';
+import Dialog from './Dialog';
+const links=[['New','/collections/new'],['Men','/collections/men'],['Women','/collections/women'],['Kids','/collections/kids'],['Collections','/collections'],['AR Try-On','/ar']];
+export default function Header(){
+ const cart=useCart(),navigate=useNavigate();const [search,setSearch]=useState(false),[query,setQuery]=useState(''),[menu,setMenu]=useState(false);
+ const results=products.filter(p=>`${p.name} ${p.category} ${p.colorway}`.toLowerCase().includes(query.toLowerCase())).slice(0,6);
+ return <><header className="store-header"><Link to="/" className="wordmark" aria-label="bare.kickss home">bare.kickss<span>®</span></Link><nav className="desktop-nav" aria-label="Main navigation">{links.map(([name,to])=><NavLink key={to} to={to}>{name}</NavLink>)}</nav><div className="store-header-actions"><button className="icon-btn" onClick={()=>setSearch(true)} aria-label="Search sneakers"><Search size={20}/></button><Link className="icon-btn account-link" to="/account" aria-label="Your account"><UserRound size={20}/></Link><button className="icon-btn bag-btn" onClick={()=>cart.setOpen(true)} aria-label={`Shopping bag, ${cart.count} items`}><ShoppingBag size={20}/><span>{cart.count}</span></button><button className="icon-btn mobile-menu" onClick={()=>setMenu(true)} aria-label="Open navigation"><Menu size={22}/></button></div></header>
+ <Dialog open={menu} onClose={()=>setMenu(false)} title="Explore" className="navigation-dialog"><nav aria-label="Mobile navigation">{links.map(([name,to])=><Link to={to} key={to} onClick={()=>setMenu(false)}>{name}</Link>)}<Link to="/account" onClick={()=>setMenu(false)}>Account</Link></nav></Dialog>
+ <Dialog open={search} onClose={()=>setSearch(false)} title="Find your next pair" className="search-dialog"><form onSubmit={e=>{e.preventDefault();setSearch(false);navigate(`/collections/all?q=${encodeURIComponent(query)}`);}}><label className="sr-only" htmlFor="product-search">Search products</label><div className="search-field"><Search size={21}/><input id="product-search" placeholder="Search sneakers, colors, silhouettes…" value={query} onChange={e=>setQuery(e.target.value)} autoComplete="off"/><button type="submit">Search</button></div></form><p className="eyebrow">{query?'SEARCH RESULTS':'A FEW TO GET YOU STARTED'}</p><div className="search-results">{results.map(p=><Link key={p.id} to={`/products/${p.id}`} onClick={()=>setSearch(false)}><img src={p.images[0]} alt=""/><span>{p.name}<small>{p.colorway}</small></span><b>{money(p.price)}</b></Link>)}{results.length===0&&<p>No pairs found. Try “court”, “running”, or a color.</p>}</div><Link className="text-link" to={`/collections/all?q=${encodeURIComponent(query)}`} onClick={()=>setSearch(false)}>View all results</Link></Dialog>
+ </>;
+}

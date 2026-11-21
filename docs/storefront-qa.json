@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "errors": [],
+  "checked": "desktop rack, mobile layout, filters, search, sizes, cart persistence, checkout, mobile nav, product-to-AR, startup, GLB, capture, 3D teardown",
+  "additional": "price sorting, combined size/price filters, empty results, profile restore, cart removal, newsletter disclosure, mobile collection, rack hover, carousel keyboard"
+}

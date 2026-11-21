@@ -1,0 +1,70 @@
+bare.kickss — local storefront handoff
+
+Stack inspection before changes
+React 18 + Vite 6 + TypeScript. Tailwind/PostCSS plus custom CSS. The original application had no router and rendered one full-screen AR page from src/App.tsx. Foot tracking ran through src/hooks/useWebARFootTracking.ts and a same-origin WebAR.rocks iframe in public/vendor/webar-rocks/.
+
+Implementation
+The existing stack and AR pipeline were retained. The old App component was moved to src/pages/ARTryOn.tsx and adapted for product links and monochrome styling. React Router 6 now provides the surrounding storefront routes. AR remains available at /ar and loads its tracker only after Start try-on is clicked.
+
+Routes
+/ — charcoal gallery wall, 10 clickable acrylic-shelf shoe displays, requested carousels and AR editorial.
+/collections — collection index.
+/collections/all, /collections/new, /collections/best-sellers, /collections/men, /collections/women, /collections/kids — listings with category, EU size, maximum price, search and sort query parameters.
+/collections/court-culture, /collections/in-motion, /collections/everyday-objects — themed collections.
+/products/:id — profile/detail gallery, size selection, bag, AR and related products.
+/cart — persistent size-aware bag with quantity and removal controls.
+/checkout — explicit demo handoff to Instagram or downloadable selection. No payments or orders are processed.
+/account — local preferences only, not authenticated accounts.
+/info/:page — about, shipping, size guide, contact and privacy.
+/ar?product=:id — original AR feature with selected exact model or a clear demo-model notice.
+/model-preview.html — existing standalone model viewer, rebranded and linked to AR.
+
+Catalog and AR
+src/store/products.ts is the single sample catalog with 20 unique records, including adult/junior/studio entries. Ten original shoe images are reused across appropriate sample editions. INR prices, sizes and catalog entries are illustrative, not real inventory. It exports a common Product shape and getProducts entry point for a later Shopify Storefront adapter; map Shopify variants/sizes, media and AR metafields to this shape when connecting a real backend.
+Only Studio 01 and Orange Study have matching existing GLBs. Other product AR buttons open the Studio 01 demo and disclose the mismatch before and during AR. No product is presented as having a matching model when it does not.
+The shared legacy shoeCatalog.ts is now derived from the same products file.
+
+Images
+Generated using the built-in image_gen tool: 10 original unbranded sneaker cutouts on genuine transparent backgrounds, shoes only. Optimized local WebP assets total under 1 MB. UI remains monochrome while product colors are retained.
+Sources: assets/generated-shoes/*.png
+Full prompt set: assets/generated-shoes/prompts.json
+Web assets: public/images/products/*.webp
+Regenerate optimized assets from saved sources: npm run images:prepare
+The user-provided screenshots guided the layout. The password-protected Shopify reference was not unlocked or scraped.
+
+Persistence and backend boundaries
+Bag contents, AR calibration, profile preferences and newsletter interest use browser localStorage. Newsletter messages clearly state that email delivery is not connected. Checkout is a labeled placeholder with an Instagram link and downloadable selection. No inventory, authentication, mailing, payment or order backend was added.
+
+AR fix
+The existing Studio 01 GLB contains non-indexed geometry, while WebAR.rocks' mirroring helper expects indexed geometry. Our engine adapter now supplies sequential indices before passing the model to the unchanged helper. This fixed the regression test failure for that model. Existing bare-foot/shoes-on models, controls, 3D inspection, capture and same-origin messaging remain intact.
+
+Validation
+npm run build: passed.
+Browser QA in an isolated headless Chrome at 1440x1100 and 390x844: 10 clickable rack items, images loaded, no page overflow, collection rendering, category/size/price filters, price sorting, empty results, required sizes, cart quantity and reload persistence, cart removal, search, mobile navigation, local profile restore, newsletter disclosure, keyboard carousel scrolling and rack hover dimming passed.
+AR regression with simulated camera: dedicated foot network initialization, Studio 01 GLB loading, PNG capture, 3D switch/camera iframe teardown, exact Orange Study selection and demo-product disclosure passed.
+No uncaught runtime/console errors during the primary browser regression run. See storefront-qa.json. Physical tracking accuracy still needs a real phone/feet test. Ankle occlusion and single-photo model reconstruction remain approximate.
+Screenshots: docs/previews/home-desktop.png, home-mobile.png, product-mobile.png.
+
+Main files touched
+package.json, package-lock.json — router/image processing dependency and scripts.
+index.html, public/favicon.svg — bare.kickss metadata/icon.
+src/main.tsx — router and cart providers.
+src/App.tsx — storefront routes, layout and lazy page loading.
+src/store/products.ts, CartContext.tsx — catalog and persistent cart.
+src/components/store/Header.tsx, Footer.tsx, ShoeRack.tsx, ProductCard.tsx, Carousel.tsx, Dialog.tsx, Cart.tsx — reusable storefront components.
+src/pages/Home.tsx, Collection.tsx, Product.tsx, CartPage.tsx, Checkout.tsx, Account.tsx, Info.tsx — storefront pages.
+src/pages/ARTryOn.tsx — existing AR component moved and rebranded, product-aware links.
+src/style.css, src/storefront.css — monochrome AR and responsive store styles.
+src/models/shoeCatalog.ts — catalog compatibility adapter.
+src/components/ShoeViewer.tsx — neutral lighting.
+public/vendor/webar-rocks/engine.js — geometry compatibility fix and neutral lighting.
+src/modelPreview.ts, src/modelPreview.css, model-preview.html — retained standalone model viewer rebranding.
+public/images/products/, assets/generated-shoes/, scripts/prepare-store-images.mjs — generated shoe assets, exact prompts and optimizer.
+docs/STOREFRONT-UPDATE.txt, docs/storefront-qa.json, docs/previews/ — handoff and verification artifacts.
+
+Start/stop
+npm install
+npm run dev
+Open the printed HTTPS localhost URL (normally https://localhost:5173/).
+If deploying the built dist folder later, configure SPA fallback to index.html for collection/product/AR routes.
+Ctrl+C in the running terminal stops the server. Mobile camera access needs a reachable HTTPS address and browser camera permission.

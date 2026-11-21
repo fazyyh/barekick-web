@@ -1,0 +1,24 @@
+Use the attached shoe photograph as the reference. Generate a high-resolution MULTI-VIEW SHOE REFERENCE SHEET for a 3D artist to reconstruct this specific sneaker.
+
+OUTPUT IMAGES, NOT PYTHON CODE, NOT A 3D SCRIPT.
+
+Show ONE consistent LEFT shoe across a clean 3-by-3 grid. Every panel must show the SAME design, colors, proportions, construction, stitching, logo placement, tongue, collar, sole thickness, and lace arrangement. Do not generate a pair. Do not show feet, people, socks, hands, scenery, packaging, UI, or a shoe being worn.
+
+Use these nine views, in this exact order:
+Row 1: outer/lateral side profile, inner/medial side profile, top-down.
+Row 2: straight-on toe/front, straight-on heel/rear, underside/outsole.
+Row 3: front outer three-quarter, front inner three-quarter, rear outer three-quarter.
+
+The first six views must be orthographic, with no perspective distortion. The bottom three should be clean, mild-perspective product views. Show the entire shoe in every panel, centered with generous equal margins. Use the same physical scale throughout the orthographic views. Align the sole baseline in the two side views. Align the toe toward the top of the sheet in top and outsole views. Maintain correct left-shoe anatomy; the medial and lateral views should not be arbitrary mirrors.
+
+Match the supplied image closely: vivid burnt-orange overlays, lighter peach-orange inset leather panels, a predominantly black midsole band, orange rubber outsole, white laces and padded light tongue, and the orange side mark with its narrow light border. Preserve panel boundaries, stitching paths, and visible perforation patterns. Do not redesign the sneaker or add decorative elements.
+
+Use a plain neutral light-gray background, soft even studio illumination, neutral white balance, realistic leather and textile detail, and sharp focus throughout. Avoid dramatic shadows, reflections, depth of field, motion blur, excessive gloss, or stylistic grading. Details must remain readable so that the pictures are useful for modeling and texture projection.
+
+Label the views in the gutter, outside the shoe. Do not overlay labels, arrows, dimensions, or watermarks on the shoe itself. Use the highest available image resolution, ideally 4096 x 4096 or higher for the sheet if supported. Also supply the nine individual views at their highest available resolution if possible; do not merely enlarge small crops and call them high resolution.
+
+Where the supplied photo does not show a surface, infer a restrained, structurally plausible continuation of the visible design, keeping all nine views mutually consistent. Identify these inferred surfaces in a short text note outside the image. Do not claim that the unseen surfaces were photographed or measured.
+
+Before finishing, check consistency: toe length and width, heel height, sole thickness, lace count and route, tongue shape, stitching, logo orientation and placement, and panel seams must agree across every view. No melted logos, duplicate laces, disconnected geometry, floating tongue, inconsistent tread, or changing colorway.
+
+The goal is a coherent modeling reference, not an advertising collage. If generating all nine views together causes inconsistencies, generate the same left shoe one view at a time and preserve the established design between images.

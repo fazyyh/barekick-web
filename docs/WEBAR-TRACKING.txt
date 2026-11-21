@@ -1,0 +1,22 @@
+SOLE AR — dedicated foot tracker integration
+
+Source: https://github.com/WebAR-rocks/WebAR.rocks.hand
+Vendored commit: 4e168a652f7bee6e63e3cb6e6732df40ed709f8d
+MIT notice: public/vendor/webar-rocks/LICENSE
+Three.js v131 notice: public/vendor/webar-rocks/three/LICENSE
+
+The active app now uses useWebARFootTracking.ts and public/vendor/webar-rocks/engine.html + engine.js. It no longer invokes useFootTracking.ts or ShoeRenderer.ts in AR mode; those files are retained as the previous implementation.
+
+The engine runs in a same-origin camera iframe because the upstream helper expects Three.js v131, while the main app uses a newer Three.js. Parent/child messages check both origin and source. Only local runtime scripts, network weights and shoe assets are loaded. No API key, paid service, or frame uploads are required.
+
+The upstream WebARRocksHand.js runtime, HandTrackerThreeHelper.js and OneEuroLMStabilizer.js are unmodified. Our engine supplies the demo's nine named foot landmarks, multi-foot scanning settings, landmark stabilization, and dedicated neural models:
+- Bare feet: NN_BAREFOOT_3.json, about 1.2 MB, default.
+- Wearing shoes: NN_FOOT_31.json, about 19 MB. Select in Fit & alignment.
+
+The helper solves a 3D foot pose; SOLE AR positions mirrored left/right GLBs in that trained coordinate space. Our current shoe scaling and translation are calibrated approximately to its template. The optional ankle occluder is a simple depth-only cylinder, not video segmentation. Switch it off if it hides too much of a shoe.
+
+Only catalog entries with actual GLBs are currently shown. Shoe switching changes the model without restarting the foot tracker. Camera switching or changing foot mode replaces the iframe, releasing its camera context and restarting the matching network. Switching to 3D removes the camera frame. Captures composite the current video and rendered shoe canvases without interface elements.
+
+Validation: production build passes. An isolated headless Chrome test with a simulated camera initialized both the barefoot and shoes-on networks in separate runs, loaded the Orange Reference GLB, and returned a PNG screenshot. This verifies startup and capture, not physical foot tracking accuracy. Verify both-foot detection, single-foot tracking, crossings, rotation, model changes, camera changes and reacquisition on your actual phone. Clear floor background and even lighting help.
+
+Known limits: field of view and model fitting are approximate; rapid motion and overlapping feet can fail; neural foot detection is not a physical foot-size measurement. The single-side-photo orange shoe still has inferred top/inside/sole surfaces. Better shoe geometry improves appearance but does not improve tracker detection.
